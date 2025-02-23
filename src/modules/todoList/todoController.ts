@@ -11,13 +11,24 @@ export default class TodoController {
     }
 
     async getAllTodo(request: RequestHelper, h: ResponseToolkit): Promise<ResponseObject> {
-        console.log("I am getting triggered")
         const todo = await this.todoService.getAllTodo();
+        return h.response(todo).code(200).header(
+            "X-Powered-By", "Hapi Js"
+        );
+    }
+
+    async getTodoById(request: RequestHelper, h: ResponseToolkit): Promise<ResponseObject> {
+        console.log(request.getParam('id'));
+        console.log(request)
+        const todo = await this.todoService.getTodoById(request.getParam('id'));
+        if(!todo) {
+            return h.response({message: `Todo with the id ${request.getParam("id")} is not found.`}).code(404);
+
+        }
         return h.response(todo).code(200);
     }
 
     async createTodo(request: RequestHelper, h: ResponseToolkit): Promise<ResponseObject> {
-       console.log(request.getPayload())
         const todo = await this.todoService.createTodo(request.getPayload());
         return h.response(todo).code(201);
     }
