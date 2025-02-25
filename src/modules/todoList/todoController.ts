@@ -1,13 +1,13 @@
 import {TodoService} from "./todoService.js";
 import {RequestHelper} from "../../common/requestHelper.js";
 import {ResponseObject, ResponseToolkit} from "@hapi/hapi";
-import {Todo} from "./todo.js";
+import {Todo} from "../../domain/types/todo.js";
 
 export default class TodoController {
     private todoService: TodoService;
 
     constructor() {
-    this.todoService = new TodoService();
+        this.todoService = new TodoService();
     }
 
     async getAllTodo(request: RequestHelper, h: ResponseToolkit): Promise<ResponseObject> {
@@ -21,7 +21,7 @@ export default class TodoController {
         console.log(request.getParam('id'));
         console.log(request)
         const todo = await this.todoService.getTodoById(request.getParam('id'));
-        if(!todo) {
+        if (!todo) {
             return h.response({message: `Todo with the id ${request.getParam("id")} is not found.`}).code(404);
 
         }
@@ -34,19 +34,18 @@ export default class TodoController {
 
     }
 
-    async updateTodo(request: RequestHelper, h: ResponseToolkit): Promise<ResponseObject> {
-        try{
-            console.log(request.getPayload());
-            console.log(request.getParam("id"))
-            const todo = await this.todoService.updateTodo(request.getParam("id"), request.getPayload());
-            console.log(todo)
-            return h.response(todo).code(201);
-        }
-        catch (e) {
-            console.log(e)
-            return h.response({"error": "Facing some issues"}).code(404)
-        }
-
-    }
+    // async updateTodo(request: RequestHelper, h: ResponseToolkit): Promise<ResponseObject> {
+    //     try {
+    //         console.log(request.getPayload());
+    //         console.log(request.getParam("id"))
+    //         const todo = await this.todoService.updateTodo(request.getParam("id"), request.getPayload());
+    //         console.log(todo)
+    //         return h.response(todo).code(201);
+    //     } catch (e) {
+    //         console.log(e)
+    //         return h.response({"error": "Facing some issues"}).code(404)
+    //     }
+    //
+    // }
 
 }

@@ -1,10 +1,12 @@
-export interface  Todo {
+import Document from "mongoose"
+
+export interface Todo extends Document {
     id: string;
     title: string;
     description: string;
     completed: boolean;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface CreateTodo {

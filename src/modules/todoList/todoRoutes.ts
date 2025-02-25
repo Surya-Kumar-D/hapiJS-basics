@@ -3,7 +3,7 @@ import TodoController from "./todoController.js";
 import {RequestHelper} from "../../common/requestHelper.js";
 import constants from "../../common/constants.js";
 import Joi from 'joi';
-import {CreateTodo, Todo, UpdateTodo} from "./todo.js";
+import {CreateTodo, Todo, UpdateTodo} from "../../domain/types/todo.js";
 
 const todoRoutes: ServerRoute[] = [];
 const todoController = new TodoController();
@@ -20,7 +20,7 @@ todoRoutes.push({
     path: `${constants.API_PATH}/todos`,
     method: 'GET',
     handler: (request, h: ResponseToolkit) =>
-         todoController.getAllTodo(new RequestHelper(request), h),
+        todoController.getAllTodo(new RequestHelper(request), h),
     options: {
         description: 'Get all todos',
         tags: ['api', 'todos'],
@@ -44,7 +44,7 @@ todoRoutes.push({
 todoRoutes.push({
     path: `${constants.API_PATH}/createTodo`,
     method: 'POST',
-    handler: (request, h: ResponseToolkit)=>
+    handler: (request, h: ResponseToolkit) =>
         todoController.createTodo(new RequestHelper(request), h),
     options: {
         description: 'Create a new todo',
@@ -55,30 +55,29 @@ todoRoutes.push({
         },
         validate: {
             payload: validateSchema,
-            options:  {
-            },
-            failAction: (req, h, err)=> {
-               return h.response({message: err?.message}).code(400).takeover()
+            options: {},
+            failAction: (req, h, err) => {
+                return h.response({message: err?.message}).code(400).takeover()
             }
         }
     }
 })
 
-todoRoutes.push({
-    path: `${constants.API_PATH}/updateTodo/{id}`,
-    method: "PATCH",
-    handler: (request, h: ResponseToolkit) =>
-        todoController.updateTodo(new RequestHelper(request), h),
-    options: {
-        description: "Update Todo",
-        tags: ['api', 'todos'],
-        payload: {
-            output: 'data',
-            parse: true
-        }
-
-    }
-})
+// todoRoutes.push({
+//     path: `${constants.API_PATH}/updateTodo/{id}`,
+//     method: "PATCH",
+//     handler: (request, h: ResponseToolkit) =>
+//         todoController.updateTodo(new RequestHelper(request), h),
+//     options: {
+//         description: "Update Todo",
+//         tags: ['api', 'todos'],
+//         payload: {
+//             output: 'data',
+//             parse: true
+//         }
+//
+//     }
+// })
 
 todoRoutes.push({
     path: `${constants.API_PATH}/`,
