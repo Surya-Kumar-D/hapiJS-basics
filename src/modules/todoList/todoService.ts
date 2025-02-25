@@ -25,8 +25,9 @@ export class TodoService {
         return newTodo;
     }
 
-    async  updateTod(id: string, todo: UpdateTodo):Promise<Todo> {
+    async  updateTodo(id: string, todo: UpdateTodo):Promise<Todo> {
         const updatedTodo = this.todos.find(todo => todo.id === id);
+        console.log(updatedTodo)
         if (!updatedTodo) {
             throw new Error('Todo not found');
         }
@@ -34,6 +35,7 @@ export class TodoService {
         updatedTodo.description = todo.description || updatedTodo.description;
         updatedTodo.completed = todo.completed || updatedTodo.completed;
         updatedTodo.updatedAt = new Date().toISOString();
+        console.log(updatedTodo)
         return updatedTodo;
 
     }
