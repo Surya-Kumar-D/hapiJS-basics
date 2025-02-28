@@ -1,6 +1,6 @@
 import {type Todo, CreateTodo, UpdateTodo} from "../../domain/types/todo.js";
 import {v4 as uuidv4} from 'uuid';
-import {getAllTodos, newTodo} from "../../domain/interface/todos.js";
+import {getAllTodos, newTodo, updateTodoById} from "../../domain/interface/todos.js";
 
 export class TodoService {
     private todos: Todo[] = [];
@@ -23,20 +23,9 @@ export class TodoService {
         return newTodo(newTodoPayload);
     }
 
-    // async updateTodo(id: string, todo: UpdateTodo): Promise<Todo> {
-    //     const updatedTodo = this.todos.find(todo => todo.id === id);
-    //     console.log(updatedTodo)
-    //     if (!updatedTodo) {
-    //         throw new Error('Todo not found');
-    //     }
-    //     updatedTodo.title = todo.title || updatedTodo.title;
-    //     updatedTodo.description = todo.description || updatedTodo.description;
-    //     updatedTodo.completed = todo.completed || updatedTodo.completed;
-    //     updatedTodo.updatedAt = new Date().toISOString();
-    //     console.log(updatedTodo)
-    //     return updatedTodo;
-    //
-    // }
+     async updateTodo(id: string, todo: UpdateTodo): Promise<Todo> {
+       return await updateTodoById(id, todo);
+     }
 
     async deleteTodo(id: string): Promise<boolean> {
         const initialLength = this.todos.length;

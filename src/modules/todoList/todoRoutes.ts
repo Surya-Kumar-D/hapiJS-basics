@@ -63,21 +63,21 @@ todoRoutes.push({
     }
 })
 
-// todoRoutes.push({
-//     path: `${constants.API_PATH}/updateTodo/{id}`,
-//     method: "PATCH",
-//     handler: (request, h: ResponseToolkit) =>
-//         todoController.updateTodo(new RequestHelper(request), h),
-//     options: {
-//         description: "Update Todo",
-//         tags: ['api', 'todos'],
-//         payload: {
-//             output: 'data',
-//             parse: true
-//         }
-//
-//     }
-// })
+todoRoutes.push({
+    path: `${constants.API_PATH}/updateTodo/{id}`,
+    method: "PATCH",
+    handler: (request, h: ResponseToolkit) =>
+        todoController.updateTodo(new RequestHelper(request), h),
+    options: {
+        description: "Update Todo",
+        tags: ['api', 'todos'],
+        payload: {
+            output: 'data',
+            parse: true
+        }
+
+    }
+})
 
 todoRoutes.push({
     path: `${constants.API_PATH}/`,

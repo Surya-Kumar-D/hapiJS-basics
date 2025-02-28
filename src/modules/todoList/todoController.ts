@@ -34,18 +34,15 @@ export default class TodoController {
 
     }
 
-    // async updateTodo(request: RequestHelper, h: ResponseToolkit): Promise<ResponseObject> {
-    //     try {
-    //         console.log(request.getPayload());
-    //         console.log(request.getParam("id"))
-    //         const todo = await this.todoService.updateTodo(request.getParam("id"), request.getPayload());
-    //         console.log(todo)
-    //         return h.response(todo).code(201);
-    //     } catch (e) {
-    //         console.log(e)
-    //         return h.response({"error": "Facing some issues"}).code(404)
-    //     }
-    //
-    // }
+    async updateTodo(request: RequestHelper, h: ResponseToolkit): Promise<ResponseObject> {
+        try {
+            const todo = await this.todoService.updateTodo(request.getParam("id"), request.getPayload());
+            return h.response(todo).code(201);
+        } catch (e) {
+            console.log(e)
+            return h.response({"error": "Facing some issues"}).code(404)
+        }
+
+    }
 
 }
